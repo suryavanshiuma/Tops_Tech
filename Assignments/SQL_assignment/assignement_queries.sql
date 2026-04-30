@@ -1,3 +1,5 @@
+USE CONTACT_MANAGEMENT;
+
 -- 1) Statement to create the Contact table 
 CREATE TABLE CONTACT(
 ContactID INT PRIMARY KEY,
@@ -28,7 +30,9 @@ CREATE TABLE Employee (
 );
 
 -- 3) Statement to create the ContactEmployee table  
--- HINT: Use DATE as the datatype for ContactDate. It allows you to store the date in this format: YYYY-MM-DD (i.e., ‘2014-03-12’ for March 12, 2014).  
+-- HINT: Use DATE as the datatype for ContactDate. 
+-- It allows you to store the date in this 
+-- format: YYYY-MM-DD (i.e., ‘2014-03-12’ for March 12, 2014).  
  
  CREATE TABLE CONTACTEMPLOYEE(
  ContactEmployeeID int,
@@ -66,14 +70,14 @@ WHERE COMPANYNAME = 'Urban Outfitters, Inc.';
  
 -- 8) What is the significance of “%” and “_” operators in the LIKE statement?  
 
-
+-- kbdjgujbvkdiolgvjlk
  
 -- 9) Explain normalization in the context of databases. 
  
  
  
--- 10) What does a join in MySQL mean?  
- 
+-- 10) What does a join in MySQL mean?
+
  
  
 -- 11) What do you understand about DDL, DCL, and DML in MySQL? 
