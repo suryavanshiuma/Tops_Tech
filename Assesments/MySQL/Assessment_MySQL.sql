@@ -10,7 +10,7 @@ SELECT COUNT(*) FROM SAMPLE_SUPERSTORE;
 
 ALTER TABLE SAMPLE_SUPERSTORE
 RENAME COLUMN `ROW ID` TO ROW_ID,
-RENAME COLUMN `Order ID` TO Order_ID,0
+RENAME COLUMN `Order ID` TO Order_ID,
 RENAME COLUMN `Order Date` TO Order_Date,
 RENAME COLUMN `Ship Date` TO Ship_Date,
 RENAME COLUMN `Ship MODE` TO Ship_MODE,
@@ -145,5 +145,80 @@ https://www.kaggle.com/datasets/vivek468/superstore-dataset-final
 
 4. Required Deliverables: SQL script for database schema creation, 
 multi-condition filtering queries, aggregated performance report by region, 
-and a summary of loss-making transactions. 
+and a summary of loss-making transactions.
 */
+
+
+/*
+1.Database schema creation
+
+CREATE DATABASE Retail_Analysis;
+USE Retail_Analysis;
+
+CREATE TABLE Superstore (
+    Row_ID INT,
+    Order_ID VARCHAR(30),
+    Order_Date DATE,
+    Ship_Date DATE,
+    Ship_Mode VARCHAR(30),
+    Customer_ID VARCHAR(30),
+    Customer_Name VARCHAR(100),
+    Segment VARCHAR(30),
+    Country VARCHAR(50),
+    City VARCHAR(50),
+    State VARCHAR(50),
+    Region VARCHAR(30),
+    Product_ID VARCHAR(50),
+    Category VARCHAR(50),
+    Sub_Category VARCHAR(50),
+    Product_Name VARCHAR(255),
+    Sales DECIMAL(10,2),
+    Quantity INT,
+    Discount DECIMAL(5,2),
+    Profit DECIMAL(10,2)
+);
+
+*/
+
+-- 2.Multi-condition filtering queries
+
+SELECT MAX(DISCOUNT) FROM sample_superstore;
+SELECT MIN(DISCOUNT) FROM sample_superstore;
+
+-- Find high discount loss-making transactions
+SELECT * FROM sample_superstore
+WHERE DISCOUNT > 0.5
+ORDER BY PROFIT ASC;
+
+SELECT * FROM sample_superstore
+WHERE DISCOUNT > 0.5 AND PROFIT < 0;
+
+-- SALES > 500 IN WEST
+SELECT * FROM sample_superstore
+WHERE Region = 'West'
+AND Sales > 500;
+
+-- 3. Aggregated Performance Report by Region
+
+-- profit, sales, discount as per region
+SELECT Region, SUM(Sales) AS Total_Sales, SUM(Profit) AS Total_Profit, AVG(Discount) AS Avg_Discount
+FROM sample_superstore
+GROUP BY Region;
+
+-- 4. Summary of Loss-Making Transactions
+-- Identify underperforming product categories and regions
+
+SELECT CATEGORY, SUM(PROFIT) FROM sample_superstore
+WHERE PROFIT < 0
+GROUP BY CATEGORY;
+
+-- -------------------------------------------------------------------
+SELECT 
+    Category,
+    Region,
+    COUNT(*) AS Loss_Orders,
+    SUM(Profit) AS Total_Loss
+FROM sample_superstore
+WHERE Profit < 0
+GROUP BY Category, Region
+ORDER BY Total_Loss;
