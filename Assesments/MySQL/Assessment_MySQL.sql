@@ -1,6 +1,8 @@
 create database Retail_sales_exploration;
 
-Use Retail_sales_exploration;
+use Retail_sales_exploration;
+
+Use test;
 
 SELECT * FROM SAMPLE_SUPERSTORE;
 
@@ -8,7 +10,7 @@ SELECT COUNT(*) FROM SAMPLE_SUPERSTORE;
 
 ALTER TABLE SAMPLE_SUPERSTORE
 RENAME COLUMN `ROW ID` TO ROW_ID,
-RENAME COLUMN `Order ID` TO Order_ID,
+RENAME COLUMN `Order ID` TO Order_ID,0
 RENAME COLUMN `Order Date` TO Order_Date,
 RENAME COLUMN `Ship Date` TO Ship_Date,
 RENAME COLUMN `Ship MODE` TO Ship_MODE,
@@ -25,7 +27,6 @@ FROM SAMPLE_SUPERSTORE;
 -- SECTION A: CONCEPT APPLICATION
 
 /*
-
 1. What is the functional difference between SELECT * and specifying column 
 names, and when is each preferred?
 ANS:
@@ -93,27 +94,56 @@ BY, and LIMIT clauses.
 ANS:
 Execution order:
 			FROM > WHERE > SELECT > ORDER BY > LIMIT
-
 Explanation:
-			SQL first identifies table,
-			filters rows,
-			selects columns,
-			sorts data,
-			then limits results.
+			FROM		SQL first identifies table,
+			WHERE 		filters rows,
+			SELECT 		selects columns,
+			ORDER BY	sorts data,
+			LIMIT 		limits results.
 */
 
+-- SECTION B: Practical Task
 /*
-
+1. Execute a query to retrieve the first 20 records from the orders table to verify 
+data ingestion.
 */
+SELECT * FROM sample_superstore
+LIMIT 20;
 
 /*
-
+2. Select Order ID, Order Date, Sales, and Profit, applying a column alias to 
+display Sales as Total_Sales.
 */
+SELECT ORDER_ID, ORDER_DATE, SALES AS TOTAL_SALES, PROFIT FROM sample_superstore;
 
 /*
-
+3. Filter the dataset to isolate all high-value transactions where the Sales figure 
+exceeds 5000.
 */
+SELECT * FROM sample_superstore
+WHERE SALES > 5000;
 
 /*
+4. Generate a report of the top 10 most profitable orders by sorting the records 
+by Profit in descending order.
+*/
+SELECT * from sample_superstore
+order by profit DESC
+LIMIT 10;
 
+-- SECTION C: Mini Project
+
+/*
+1. Title: Retail Profitability & Market Segment Analysis 
+
+2. Problem Statement: Identify underperforming product categories and regions 
+by analyzing the relationship between discount rates and net profit margins. 
+
+3.  Dataset Recommendation: Sample Superstore Dataset 
+(SampleSuperstore.csv) - 
+https://www.kaggle.com/datasets/vivek468/superstore-dataset-final  
+
+4. Required Deliverables: SQL script for database schema creation, 
+multi-condition filtering queries, aggregated performance report by region, 
+and a summary of loss-making transactions. 
 */
